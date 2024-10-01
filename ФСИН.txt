@@ -1,0 +1,122 @@
+#define BORYPRO_FSIN 15 // Фсин - название фракции, 15 - id фракции
+
+new JoinPed[55][58][1] = { {121}, {123}, {124} };
+
+// Функция, которая дает игроку оружие при спавне
+public SetPlayerWeapons(playerid)
+{
+    if (PlayerInfo[playerid][pMember] == borypro_fsin || PlayerInfo[playerid][pLeader] == borypro_fsin)
+    {
+        GivePlayerWeapon(playerid, 9, 2); // Оружие (id оружия, кол-во патронов)
+        GivePlayerWeapon(playerid, 24, 100);
+        GivePlayerWeapon(playerid, 16, 5);
+    }
+}
+
+// Код для спавна игрока в определенном месте
+if (PlayerInfo[playerid][pMember] == borypro_fsin || PlayerInfo[playerid][pLeader] == borypro_fsin)
+{
+    SetPlayerToTeamColor(playerid);
+    SetPlayerPos(playerid, 1211.7175, -35.2523, 1000.9531);
+    SetPlayerFacingAngle(playerid, 1.7739);
+    SetPlayerInterior(playerid, 3);
+    PlayerInfo[playerid][pInt] = 1;
+    SetPlayerWeapons(playerid); // Вызываем функцию, которая дает игроку оружие
+    return 1;
+}
+
+// Код для определения ранга игрока
+else if (PlayerInfo[targetid][pMember] == TEAM_Bala || PlayerInfo[targetid][pLeader] == borypro_fsin)
+{
+    if (PlayerInfo[targetid][pRank] == 1) { rtext = "Лыган"; }
+    else if (PlayerInfo[targetid][pRank] == 2) { rtext = "Новичек"; }
+    else if (PlayerInfo[targetid][pRank] == 3) { rtext = "Вымогатель"; }
+    else if (PlayerInfo[targetid][pRank] == 4) { rtext = "Барыга"; }
+    else if (PlayerInfo[targetid][pRank] == 5) { rtext = "Гопник"; }
+    else if (PlayerInfo[targetid][pRank] == 6) { rtext = "Крыша"; }
+    else if (PlayerInfo[targetid][pRank] == 7) { rtext = "Браток"; }
+    else if (PlayerInfo[targetid][pRank] == 8) { rtext = "Бандит"; }
+    else if (PlayerInfo[targetid][pRank] == 9) { rtext = "Батька"; }
+    else if (PlayerInfo[targetid][pRank] == 10) { rtext = "Дедъ"; }
+    else { rtext = "Лыган"; }
+}
+
+// Код для изменения скина игрока в определенной фракции
+switch (PlayerInfo[playerid][pMember])
+{
+    case borypro_fsin: // Фсин
+    {
+        if (SelectCharPlace[playerid] == 1) { SetPlayerSkin(playerid, JoinPed[62][0]); SelectCharPlace[playerid] = 2; ChosenSkin[playerid]
+    }
+if (level > 20 || level < 0) {
+    SendClientMessage(playerid, COLOR_GREY, "Не возможна цифра менее 0, или больше 22!");
+    return 1;
+}
+
+if (level == 15) {
+    PlayerInfo[para1][pChar] = 104; // 15 id фракции 104 - ид скина для лидера
+    gTeam[para1] = 20;
+    PlayerInfo[para1][pTeam] = 20;
+
+    switch (SelectCharPlace[playerid]) {
+        case 1: // ФСИН
+            SetPlayerSkin(playerid, JoinPed[62][0]);
+            SelectCharPlace[playerid] = 2;
+            ChosenSkin[playerid] = JoinPed[62][0];
+            break;
+        case 2:
+            SetPlayerSkin(playerid, JoinPed[63][0]);
+            SelectCharPlace[playerid] = 3;
+            ChosenSkin[playerid] = JoinPed[63][0];
+            break;
+        case 3:
+            SetPlayerSkin(playerid, JoinPed[64][0]);
+            SelectCharPlace[playerid] = 1;
+            ChosenSkin[playerid] = JoinPed[64][0];
+            break;
+        default:
+            break;
+    }
+} else if (member == 15) {
+    char string[256];
+    switch (PlayerInfo[playerid][pRank]) {
+        case 10:
+            format(string, sizeof(string), " Дедъ %s: %s. )) ", sendername, result);
+            break;
+        case 9:
+            format(string, sizeof(string), " Батька %s: %s. ))  ", sendername, result);
+            break;
+        case 8:
+            format(string, sizeof(string), " Бандит %s: %s. ))  ", sendername, result);
+            break;
+        case 7:
+            format(string, sizeof(string), " Браток %s: %s. ))  ", sendername, result);
+            break;
+        case 6:
+            format(string, sizeof(string), " Крыша %s: %s. )) ", sendername, result);
+            break;
+        case 5:
+            format(string, sizeof(string), " Гопник %s: %s. ))  ", sendername, result);
+            break;
+        case 4:
+            format(string, sizeof(string), " Барыга %s: %s. ))  ", sendername, result);
+            break;
+        case 3:
+            format(string, sizeof(string), " Вымогатель %s: %s. ))  ", sendername, result);
+            break;
+        case 2:
+            format(string, sizeof(string), " Новичек %s: %s. ))  ", sendername, result);
+            break;
+        case 1:
+            format(string, sizeof(string), " Лыган %s: %s. ))  ", sendername, result);
+            break;
+        default:
+            format(string, sizeof(string), " Лыган %s: %s. )) ", sendername, result);
+            break;
+    }
+    SendFamilyMessage(PlayerInfo[playerid][pMember], TEAM_AZTECAS_COLOR, string);
+}
+else if (leader == 15) { // id фраки
+    format(string, sizeof(string), "Дедъ %s: %s. ))", sendername, result); // ранг лидера
+    SendFamilyMessage(PlayerInfo[playerid][pLeader], TEAM_AZTECAS_COLOR, string);
+}
